@@ -27,13 +27,7 @@ final readonly class Changelog
     {
         $nameParts = explode('-', $fileName);
         $type = array_shift($nameParts);
-
-        $minorParts = explode('.', $version->__toString());
-        $major = array_shift($minorParts);
-
-        $labels = [$version->__toString(), $major, $type];
         $issueBody = explode("\n", $message);
-
         $nextLineIsTitle = false;
         $title = '';
 
@@ -47,13 +41,13 @@ final readonly class Changelog
             }
         }
 
-        $this->labels = $labels;
+        $this->labels = [$version->__toString(), $version->getMajorVersion(), $type];
         $this->title = $title;
 
         $fileNameWithHtml = str_replace('.rst', '.html', $fileName);
         $url = sprintf(self::PUBLIC_CHANGELOG_URL, $version, $fileNameWithHtml);
 
-        $this->message = $title . PHP_EOL . PHP_EOL . $url . PHP_EOL . implode(PHP_EOL, $issueBody);
+        $this->message = $title . "\n" . "\n" . $url . "\n" . implode("\n", $issueBody);
         $this->hash = md5($fileName);
         $this->fileName = $fileName;
     }
