@@ -1,12 +1,16 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Dto;
 
 final readonly class GithubIssue
 {
-    private function __construct(private string $title, private string $message, private array $labels)
-    {
+    private function __construct(
+        private string $title,
+        private string $message,
+        private array $labels
+    ) {
     }
 
     public static function fromChangelog(Changelog $changelog): self
@@ -28,6 +32,4 @@ final readonly class GithubIssue
     {
         return $this->labels;
     }
-
-
 }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Tests\Unit\Service;
@@ -17,6 +18,7 @@ use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 final class IssueImportServiceTest extends TestCase
 {
     private IssueImportService $subject;
+
     private InMemoryIssueRepository $issueRepository;
 
     protected function setUp(): void
@@ -24,10 +26,11 @@ final class IssueImportServiceTest extends TestCase
         $this->issueRepository = new InMemoryIssueRepository();
 
         $this->subject = new IssueImportService(
-            new InMemoryChangelogRepository([
+            new InMemoryChangelogRepository(
+                [
                     new Changelog('filename.rst', 'A message', new Version('12.4')),
                     new Changelog('Feature.rst', 'A message', new Version('12.4')),
-                    new Changelog('Index.rst', 'A message', new Version('12.4'))
+                    new Changelog('Index.rst', 'A message', new Version('12.4')),
                 ]
             ),
             $this->issueRepository,

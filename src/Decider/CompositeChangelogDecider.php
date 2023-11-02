@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Decider;
@@ -10,14 +11,15 @@ final readonly class CompositeChangelogDecider implements ChangelogDeciderInterf
     /**
      * @param ChangelogDeciderInterface[] $deciders
      */
-    public function __construct(private array $deciders)
-    {
+    public function __construct(
+        private array $deciders
+    ) {
     }
 
     public function __invoke(string $fileName): bool
     {
         foreach ($this->deciders as $decider) {
-            if($decider($fileName) === false) {
+            if ($decider($fileName) === false) {
                 return false;
             }
         }

@@ -1,12 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Dto;
 
 final readonly class Credentials
 {
-    public function __construct(private string $username, private string $repositoryName)
-    {
+    public function __construct(
+        private string $username,
+        private string $repositoryName
+    ) {
     }
 
     public function getUsername(): string
@@ -18,6 +21,4 @@ final readonly class Credentials
     {
         return $this->repositoryName;
     }
-
-
 }

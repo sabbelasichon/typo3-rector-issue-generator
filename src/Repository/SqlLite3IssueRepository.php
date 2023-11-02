@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Repository;
@@ -9,8 +10,9 @@ use Ssch\Typo3rectorIssueGenerator\Dto\Issue;
 
 final readonly class SqlLite3IssueRepository implements IssueRepositoryInterface
 {
-    public function __construct(private \SQLite3 $database)
-    {
+    public function __construct(
+        private \SQLite3 $database
+    ) {
         $this->database->exec("CREATE TABLE IF NOT EXISTS issues(
                 id INTEGER PRIMARY KEY AUTOINCREMENT, 
                 github_issue_id INTEGER, 
@@ -21,7 +23,7 @@ final readonly class SqlLite3IssueRepository implements IssueRepositoryInterface
     public function exists(Changelog $changelog): bool
     {
         $statement = $this->database->prepare("SELECT id FROM issues WHERE hash=:hash LIMIT 1");
-        if($statement === false) {
+        if ($statement === false) {
             throw new \UnexpectedValueException('Could not prepare database statement');
         }
 
@@ -35,7 +37,7 @@ final readonly class SqlLite3IssueRepository implements IssueRepositoryInterface
     public function save(Issue $issue): void
     {
         $statement = $this->database->prepare("INSERT INTO issues (hash,github_issue_id) VALUES (:hash, :github_issue_id)");
-        if($statement === false) {
+        if ($statement === false) {
             throw new \UnexpectedValueException('Could not prepare database statement');
         }
 

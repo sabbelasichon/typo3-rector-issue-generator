@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Repository;
@@ -13,17 +14,18 @@ final readonly class InMemoryChangelogRepository implements ChangelogRepositoryI
     /**
      * @param Changelog[] $changelogs
      */
-    public function __construct(private array $changelogs)
-    {
+    public function __construct(
+        private array $changelogs
+    ) {
     }
 
     public function findByVersion(Version $version, ChangelogDeciderInterface $changelogDecider): array
     {
         $changelogs = [];
         foreach ($this->changelogs as $changelog) {
-              if($changelogDecider($changelog->getFileName()) === false) {
-                  continue;
-              }
+            if ($changelogDecider($changelog->getFileName()) === false) {
+                continue;
+            }
 
             $changelogs[] = $changelog;
         }

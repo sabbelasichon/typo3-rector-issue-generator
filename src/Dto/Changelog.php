@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Dto;
@@ -11,9 +12,13 @@ final readonly class Changelog
      * @var array<int, string>
      */
     private array $labels;
+
     private string $message;
+
     private string $hash;
+
     private string $fileName;
+
     private string $title;
 
     private const PUBLIC_CHANGELOG_URL = 'https://docs.typo3.org/c/typo3/cms-core/master/en-us/Changelog/%s/%s';
@@ -48,7 +53,7 @@ final readonly class Changelog
         $fileNameWithHtml = str_replace('.rst', '.html', $fileName);
         $url = sprintf(self::PUBLIC_CHANGELOG_URL, $version, $fileNameWithHtml);
 
-        $this->message = $title.PHP_EOL.PHP_EOL.$url.PHP_EOL.implode(PHP_EOL, $issueBody);
+        $this->message = $title . PHP_EOL . PHP_EOL . $url . PHP_EOL . implode(PHP_EOL, $issueBody);
         $this->hash = md5($fileName);
         $this->fileName = $fileName;
     }

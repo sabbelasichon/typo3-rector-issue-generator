@@ -1,8 +1,8 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Repository;
-
 
 use Ssch\Typo3rectorIssueGenerator\Contract\IssueRepositoryInterface;
 use Ssch\Typo3rectorIssueGenerator\Dto\Changelog;
@@ -28,7 +28,7 @@ final class InMemoryIssueRepository implements IssueRepositoryInterface
     public function exists(Changelog $changelog): bool
     {
         foreach ($this->issues as $issue) {
-            if($issue->getHash() === $changelog->getHash()) {
+            if ($issue->getHash() === $changelog->getHash()) {
                 return true;
             }
         }

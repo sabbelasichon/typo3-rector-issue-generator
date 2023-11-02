@@ -30,6 +30,10 @@
             "email": "me@schreibersebastian.de"
         }
     ],
+    "scripts": {
+        "check-style": "@php ecs --ansi",
+        "fix-style": "@php ecs --fix"
+    },
     "config": {
         "allow-plugins": {
             "php-http/discovery": true

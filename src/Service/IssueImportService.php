@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Service;
@@ -20,8 +21,7 @@ final readonly class IssueImportService
         private ChangelogRepositoryInterface   $changelogRepository,
         private IssueRepositoryInterface       $issueRepository,
         private GithubIssueRepositoryInterface $githubIssueRepository
-    )
-    {
+    ) {
     }
 
     /**
@@ -38,7 +38,6 @@ final readonly class IssueImportService
             $output->start(count($changelogs));
 
             foreach ($changelogs as $changelog) {
-
                 $output->advance();
 
                 if ($this->issueRepository->exists($changelog)) {

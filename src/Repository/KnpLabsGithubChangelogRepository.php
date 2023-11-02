@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Repository;
@@ -12,20 +13,21 @@ use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
 final readonly class KnpLabsGithubChangelogRepository implements ChangelogRepositoryInterface
 {
-    public function __construct(private Client $client)
-    {
+    public function __construct(
+        private Client $client
+    ) {
     }
 
     public function findByVersion(Version $version, ChangelogDeciderInterface $changelogDecider): array
     {
         $repo = new Repo($this->client);
-        $remoteChangelogs = $repo->contents()->configure()->show('TYPO3', 'TYPO3.CMS', 'typo3/sysext/core/Documentation/Changelog/' .$version->__toString());
+        $remoteChangelogs = $repo->contents()->configure()->show('TYPO3', 'TYPO3.CMS', 'typo3/sysext/core/Documentation/Changelog/' . $version->__toString());
 
         $changelogs = [];
         foreach ($remoteChangelogs as $changelogPath) {
             $fileName = $changelogPath['name'];
 
-            if($changelogDecider($fileName) === false) {
+            if ($changelogDecider($fileName) === false) {
                 continue;
             }
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Output;
@@ -9,8 +10,10 @@ use Symfony\Component\Console\Helper\ProgressBar;
 final class SymfonyConsoleOutput implements OutputInterface
 {
     private ?ProgressBar $progressBar = null;
-    public function __construct(private readonly \Symfony\Component\Console\Output\OutputInterface $output)
-    {
+
+    public function __construct(
+        private readonly \Symfony\Component\Console\Output\OutputInterface $output
+    ) {
     }
 
     public function output(iterable|string $content): void
@@ -20,7 +23,7 @@ final class SymfonyConsoleOutput implements OutputInterface
 
     public function start(int $count): void
     {
-        if($this->progressBar !== null) {
+        if ($this->progressBar !== null) {
             throw new \LogicException('The ProgressBar should have not been initialized.');
         }
 
@@ -29,7 +32,7 @@ final class SymfonyConsoleOutput implements OutputInterface
 
     public function advance(): void
     {
-        if($this->progressBar === null) {
+        if ($this->progressBar === null) {
             throw new \LogicException('The ProgressBar should have been initialized before.');
         }
 
@@ -38,7 +41,7 @@ final class SymfonyConsoleOutput implements OutputInterface
 
     public function finish(): void
     {
-        if($this->progressBar === null) {
+        if ($this->progressBar === null) {
             throw new \LogicException('The ProgressBar should have been initialized before.');
         }
 
