@@ -37,7 +37,7 @@ $dotenv->load(__DIR__.'/.env');
         $client->authenticate($credentials->getAccessToken(), null, AuthMethod::ACCESS_TOKEN);
 
         (new IssueImportService(
-            new KnpLabsGithubChangelogRepository(new Client()),
+            new KnpLabsGithubChangelogRepository($client),
             new SqlLite3IssueRepository(new SQLite3(__DIR__ . '/db/issues.db')),
             new KnpLabsGithubIssueRepository($client, $credentials),
             new CompositeChangelogDecider([new NonIndexDecider(), new NonFeatureDecider()])
