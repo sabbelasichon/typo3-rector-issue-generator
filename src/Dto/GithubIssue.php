@@ -6,6 +6,9 @@ namespace Ssch\Typo3rectorIssueGenerator\Dto;
 
 final readonly class GithubIssue
 {
+    /**
+     * @param string[] $labels
+     */
     private function __construct(
         private string $title,
         private string $message,
@@ -28,6 +31,9 @@ final readonly class GithubIssue
         return $this->message;
     }
 
+    /**
+     * @return string[]
+     */
     public function getLabels(): array
     {
         return $this->labels;

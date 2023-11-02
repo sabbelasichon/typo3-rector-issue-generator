@@ -24,6 +24,11 @@ final readonly class KnpLabsGithubChangelogRepository implements ChangelogReposi
         $remoteChangelogs = $repo->contents()->configure()->show('TYPO3', 'TYPO3.CMS', 'typo3/sysext/core/Documentation/Changelog/' . $version->__toString());
 
         $changelogs = [];
+
+        if(!is_array($remoteChangelogs)) {
+            return [];
+        }
+
         foreach ($remoteChangelogs as $changelogPath) {
             $fileName = $changelogPath['name'];
 
@@ -32,6 +37,10 @@ final readonly class KnpLabsGithubChangelogRepository implements ChangelogReposi
             }
 
             $remoteChangeLog = $repo->contents()->configure()->show('TYPO3', 'TYPO3.CMS', $changelogPath['path']);
+
+            if(!is_string($remoteChangeLog)) {
+                continue;
+            }
 
             $changelogs[] = new Changelog($fileName, $remoteChangeLog, $version);
         }

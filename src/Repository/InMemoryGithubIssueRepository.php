@@ -10,6 +10,9 @@ use Ssch\Typo3rectorIssueGenerator\ValueObject\GithubIssueId;
 
 final class InMemoryGithubIssueRepository implements GithubIssueRepositoryInterface
 {
+    /**
+     * @var GithubIssue[]
+     */
     private array $githubIssues = [];
 
     public function save(GithubIssue $githubIssue): GithubIssueId

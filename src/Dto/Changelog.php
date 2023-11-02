@@ -31,7 +31,7 @@ final readonly class Changelog
         $minorParts = explode('.', $version->__toString());
         $major = array_shift($minorParts);
 
-        $labels = [$version, $major, $type];
+        $labels = [$version->__toString(), $major, $type];
         $issueBody = explode("\n", $message);
 
         $nextLineIsTitle = false;
@@ -63,6 +63,9 @@ final readonly class Changelog
         return $this->message;
     }
 
+    /**
+     * @return string[]
+     */
     public function getLabels(): array
     {
         return $this->labels;

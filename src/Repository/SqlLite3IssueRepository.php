@@ -29,9 +29,13 @@ final readonly class SqlLite3IssueRepository implements IssueRepositoryInterface
 
         $statement->bindValue(':hash', $changelog->getHash());
 
-        $result = $statement->execute()->fetchArray(SQLITE3_ASSOC);
+        $result = $statement->execute();
 
-        return $result !== false;
+        if($result === false) {
+            return false;
+        }
+
+        return $result->fetchArray(SQLITE3_ASSOC) !== false;
     }
 
     public function save(Issue $issue): void

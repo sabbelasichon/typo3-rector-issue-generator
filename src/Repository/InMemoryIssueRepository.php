@@ -20,6 +20,9 @@ final class InMemoryIssueRepository implements IssueRepositoryInterface
         $this->issues[] = $issue;
     }
 
+    /**
+     * @return Issue[]
+     */
     public function getIssues(): array
     {
         return $this->issues;
