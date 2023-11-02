@@ -18,6 +18,9 @@ use Ssch\Typo3rectorIssueGenerator\Service\IssueImportService;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\GithubIssueId;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
+/**
+ * @covers \Ssch\Typo3rectorIssueGenerator\Service\IssueImportService
+ */
 final class IssueImportServiceTest extends TestCase
 {
     private IssueImportService $subject;
