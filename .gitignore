@@ -1,3 +1,4 @@
 /vendor/
 /db/*
 !/db/.gitkeep
+.phpunit.result.cache
