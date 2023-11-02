@@ -24,15 +24,15 @@ final readonly class KnpLabsGithubIssueRepository implements GithubIssueReposito
         /** @var Issue $issueApi */
         $issueApi = $this->client->api('issue');
 
-        $issueArray = $issueApi->create($this->credentials->getUsername(), $this->credentials->getRepositoryName(), [
+        $remoteIssue = $issueApi->create($this->credentials->getUsername(), $this->credentials->getRepositoryName(), [
             'title' => $githubIssue->getTitle(),
             'body' => $githubIssue->getMessage(),
         ]);
 
         foreach ($githubIssue->getLabels() as $label) {
-            $issueApi->labels()->add($this->credentials->getUsername(), $this->credentials->getRepositoryName(), $issueArray['number'], (string) $label);
+            $issueApi->labels()->add($this->credentials->getUsername(), $this->credentials->getRepositoryName(), $remoteIssue['number'], $label);
         }
 
-        return new GithubIssueId($issueArray['number']);
+        return new GithubIssueId($remoteIssue['number']);
     }
 }

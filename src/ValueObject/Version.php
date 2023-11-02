@@ -11,7 +11,7 @@ final readonly class Version implements \Stringable
     public function __construct(
         private string $version
     ) {
-        $minorParts = explode('.', $version);
+        $minorParts = explode('.', $this->version);
         $this->majorVersion = array_shift($minorParts);
     }
 

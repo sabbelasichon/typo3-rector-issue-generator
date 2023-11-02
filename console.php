@@ -36,14 +36,12 @@ $dotenv->load(__DIR__.'/.env');
         $client = new Client();
         $client->authenticate($credentials->getAccessToken(), null, AuthMethod::ACCESS_TOKEN);
 
-        $importService = new IssueImportService(
-            new KnpLabsGithubChangelogRepository($client),
+        (new IssueImportService(
+            new KnpLabsGithubChangelogRepository(new Client()),
             new SqlLite3IssueRepository(new SQLite3(__DIR__ . '/db/issues.db')),
             new KnpLabsGithubIssueRepository($client, $credentials),
             new CompositeChangelogDecider([new NonIndexDecider(), new NonFeatureDecider()])
-        );
-
-        $importService->import($versions, new SymfonyConsoleOutput($output));
+        ))->import($versions, new SymfonyConsoleOutput($output));
 
         return Command::SUCCESS;
     })
