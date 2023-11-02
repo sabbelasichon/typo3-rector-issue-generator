@@ -1,0 +1,38 @@
+{
+    "name": "ssch/typo3rector-issue-generator",
+    "description": "Generate Issues for TYPO3 Rector from TYPO3 Changelogs",
+    "type": "project",
+    "require": {
+        "symfony/console": "^6.3",
+        "knplabs/github-api": "^3.12",
+        "symfony/http-client": "^6.3",
+        "nyholm/psr7": "^1.8",
+        "webmozart/assert": "^1.11"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.4",
+        "symplify/easy-coding-standard": "^12.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ssch\\Typo3rectorIssueGenerator\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Ssch\\Typo3rectorIssueGenerator\\Tests\\": "tests/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Sebastian Schreiber",
+            "email": "me@schreibersebastian.de"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    }
+}
