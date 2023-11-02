@@ -17,8 +17,8 @@ use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 final readonly class IssueImportService
 {
     public function __construct(
-        private ChangelogRepositoryInterface $changelogRepository,
-        private IssueRepositoryInterface $issueRepository,
+        private ChangelogRepositoryInterface   $changelogRepository,
+        private IssueRepositoryInterface       $issueRepository,
         private GithubIssueRepositoryInterface $githubIssueRepository
     )
     {
@@ -41,7 +41,7 @@ final readonly class IssueImportService
 
                 $output->advance();
 
-                if($this->issueRepository->exists($changelog)) {
+                if ($this->issueRepository->exists($changelog)) {
                     continue;
                 }
 
@@ -49,10 +49,7 @@ final readonly class IssueImportService
 
                 $this->issueRepository->save(new Issue($changelog->getHash(), $githubIssueId));
 
-                $importedIssues[] = [
-                    'message' => sprintf('Inserted issue %s', $githubIssueId),
-                    'path' => $changelog->getFileName(),
-                ];
+                $importedIssues[] = sprintf('Inserted issue "%s" with file path "%s"', $githubIssueId, $changelog->getFileName());
             }
 
             $output->finish();

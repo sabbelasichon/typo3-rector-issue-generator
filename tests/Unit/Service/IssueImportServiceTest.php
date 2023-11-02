@@ -25,9 +25,9 @@ final class IssueImportServiceTest extends TestCase
 
         $this->subject = new IssueImportService(
             new InMemoryChangelogRepository([
-                    new Changelog('filename.rst', 'A message', new Version('12.4'), ''),
-                    new Changelog('Feature.rst', 'A message', new Version('12.4'), ''),
-                    new Changelog('Index.rst', 'A message', new Version('12.4'), '')
+                    new Changelog('filename.rst', 'A message', new Version('12.4')),
+                    new Changelog('Feature.rst', 'A message', new Version('12.4')),
+                    new Changelog('Index.rst', 'A message', new Version('12.4'))
                 ]
             ),
             $this->issueRepository,
