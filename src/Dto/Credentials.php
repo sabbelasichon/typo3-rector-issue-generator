@@ -8,8 +8,14 @@ final readonly class Credentials
 {
     public function __construct(
         private string $username,
-        private string $repositoryName
+        private string $repositoryName,
+        private string $accessToken
     ) {
+    }
+
+    public function getAccessToken(): string
+    {
+        return $this->accessToken;
     }
 
     public function getUsername(): string

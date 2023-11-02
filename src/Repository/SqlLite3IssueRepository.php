@@ -31,7 +31,7 @@ final readonly class SqlLite3IssueRepository implements IssueRepositoryInterface
 
         $result = $statement->execute();
 
-        if($result === false) {
+        if ($result === false) {
             return false;
         }
 

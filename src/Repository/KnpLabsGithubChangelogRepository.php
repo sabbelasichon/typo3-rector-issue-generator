@@ -25,7 +25,7 @@ final readonly class KnpLabsGithubChangelogRepository implements ChangelogReposi
 
         $changelogs = [];
 
-        if(!is_array($remoteChangelogs)) {
+        if (! is_array($remoteChangelogs)) {
             return [];
         }
 
@@ -38,7 +38,7 @@ final readonly class KnpLabsGithubChangelogRepository implements ChangelogReposi
 
             $remoteChangeLog = $repo->contents()->configure()->show('TYPO3', 'TYPO3.CMS', $changelogPath['path']);
 
-            if(!is_string($remoteChangeLog)) {
+            if (! is_string($remoteChangeLog)) {
                 continue;
             }
 

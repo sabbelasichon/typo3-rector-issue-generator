@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Service;
 
+use Ssch\Typo3rectorIssueGenerator\Contract\ChangelogDeciderInterface;
 use Ssch\Typo3rectorIssueGenerator\Contract\ChangelogRepositoryInterface;
 use Ssch\Typo3rectorIssueGenerator\Contract\GithubIssueRepositoryInterface;
 use Ssch\Typo3rectorIssueGenerator\Contract\IssueRepositoryInterface;
 use Ssch\Typo3rectorIssueGenerator\Contract\OutputInterface;
-use Ssch\Typo3rectorIssueGenerator\Decider\CompositeChangelogDecider;
-use Ssch\Typo3rectorIssueGenerator\Decider\NonFeatureDecider;
-use Ssch\Typo3rectorIssueGenerator\Decider\NonIndexDecider;
 use Ssch\Typo3rectorIssueGenerator\Dto\GithubIssue;
 use Ssch\Typo3rectorIssueGenerator\Dto\Issue;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
@@ -20,7 +18,8 @@ final readonly class IssueImportService
     public function __construct(
         private ChangelogRepositoryInterface   $changelogRepository,
         private IssueRepositoryInterface       $issueRepository,
-        private GithubIssueRepositoryInterface $githubIssueRepository
+        private GithubIssueRepositoryInterface $githubIssueRepository,
+        private ChangelogDeciderInterface $changelogDecider
     ) {
     }
 
@@ -33,7 +32,7 @@ final readonly class IssueImportService
         foreach ($versions as $version) {
             $output->output('Import changelogs for version: ' . $version->__toString());
 
-            $changelogs = $this->changelogRepository->findByVersion($version, new CompositeChangelogDecider([new NonIndexDecider(), new NonFeatureDecider()]));
+            $changelogs = $this->changelogRepository->findByVersion($version, $this->changelogDecider);
 
             $output->start(count($changelogs));
 

@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Ssch\Typo3rectorIssueGenerator\Tests\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
+use Ssch\Typo3rectorIssueGenerator\Decider\CompositeChangelogDecider;
+use Ssch\Typo3rectorIssueGenerator\Decider\NonFeatureDecider;
+use Ssch\Typo3rectorIssueGenerator\Decider\NonIndexDecider;
 use Ssch\Typo3rectorIssueGenerator\Dto\Changelog;
 use Ssch\Typo3rectorIssueGenerator\Dto\Issue;
 use Ssch\Typo3rectorIssueGenerator\Output\NullOutput;
@@ -35,6 +38,7 @@ final class IssueImportServiceTest extends TestCase
             ),
             $this->issueRepository,
             new InMemoryGithubIssueRepository(),
+            new CompositeChangelogDecider([new NonIndexDecider(), new NonFeatureDecider()])
         );
     }
 
