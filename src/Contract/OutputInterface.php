@@ -6,10 +6,7 @@ namespace Ssch\Typo3rectorIssueGenerator\Contract;
 
 interface OutputInterface
 {
-    /**
-     * @param string|string[] $content
-     */
-    public function output(string|iterable $content): void;
+    public function write(string $content): void;
 
     public function start(int $count): void;
 

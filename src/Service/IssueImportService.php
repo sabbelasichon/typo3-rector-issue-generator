@@ -30,7 +30,7 @@ final readonly class IssueImportService
     {
         $importedIssues = [];
         foreach ($versions as $version) {
-            $output->output('Import changelogs for version: ' . $version->__toString());
+            $output->write('Import changelogs for version: ' . $version->__toString());
 
             $changelogs = $this->changelogRepository->findByVersion($version, $this->changelogDecider);
 
@@ -51,9 +51,11 @@ final readonly class IssueImportService
             }
 
             $output->finish();
-            $output->output('');
+            $output->write('');
         }
 
-        $output->output($importedIssues);
+        foreach ($importedIssues as $importedIssue) {
+            $output->write($importedIssue);
+        }
     }
 }

@@ -16,7 +16,7 @@ final class SymfonyConsoleOutput implements OutputInterface
     ) {
     }
 
-    public function output(iterable|string $content): void
+    public function write(string $content): void
     {
         $this->output->writeln($content);
     }

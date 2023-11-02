@@ -8,7 +8,7 @@ use Ssch\Typo3rectorIssueGenerator\Contract\OutputInterface;
 
 final class NullOutput implements OutputInterface
 {
-    public function output(iterable|string $content): void
+    public function write(string $content): void
     {
     }
 
