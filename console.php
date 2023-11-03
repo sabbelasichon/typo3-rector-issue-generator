@@ -30,7 +30,7 @@ $dotenv->load(__DIR__.'/.env');
     ->addArgument('versions', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'The TYPO3 Versions')
     ->setCode(function (InputInterface $input, OutputInterface $output): int {
 
-        $credentials = new Credentials($_ENV['GITHUB_USERNAME'], 'typo3-rector', $_ENV['GITHUB_ACCESS_TOKEN']);
+        $credentials = new Credentials('sabbelasichon', 'typo3-rector', $_ENV['GITHUB_ACCESS_TOKEN']);
         $versions = array_map(fn(string $version) => new Version($version), $input->getArgument('versions'));
 
         $client = new Client();
