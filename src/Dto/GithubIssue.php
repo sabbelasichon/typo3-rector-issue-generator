@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Dto;
 
-final readonly class GithubIssue
+final class GithubIssue
 {
     /**
      * @param string[] $labels

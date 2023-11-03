@@ -11,7 +11,7 @@ use Ssch\Typo3rectorIssueGenerator\Dto\Credentials;
 use Ssch\Typo3rectorIssueGenerator\Dto\GithubIssue;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\GithubIssueId;
 
-final readonly class KnpLabsGithubIssueRepository implements GithubIssueRepositoryInterface
+final class KnpLabsGithubIssueRepository implements GithubIssueRepositoryInterface
 {
     public function __construct(
         private Client $client,

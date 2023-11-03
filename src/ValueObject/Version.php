@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\ValueObject;
 
-final readonly class Version implements \Stringable
+final class Version implements \Stringable
 {
     private string $majorVersion;
 

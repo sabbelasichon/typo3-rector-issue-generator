@@ -6,7 +6,7 @@ namespace Ssch\Typo3rectorIssueGenerator\Decider;
 
 use Ssch\Typo3rectorIssueGenerator\Contract\ChangelogDeciderInterface;
 
-final readonly class CompositeChangelogDecider implements ChangelogDeciderInterface
+final class CompositeChangelogDecider implements ChangelogDeciderInterface
 {
     /**
      * @param ChangelogDeciderInterface[] $deciders

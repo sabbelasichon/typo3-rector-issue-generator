@@ -6,7 +6,7 @@ namespace Ssch\Typo3rectorIssueGenerator\Dto;
 
 use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
-final readonly class Changelog
+final class Changelog
 {
     /**
      * @var array<int, string>

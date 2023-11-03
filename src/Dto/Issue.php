@@ -6,7 +6,7 @@ namespace Ssch\Typo3rectorIssueGenerator\Dto;
 
 use Ssch\Typo3rectorIssueGenerator\ValueObject\GithubIssueId;
 
-final readonly class Issue
+final class Issue
 {
     public function __construct(
         private string $hash,
