@@ -16,8 +16,8 @@ use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 final class IssueImportService
 {
     public function __construct(
-        private ChangelogRepositoryInterface   $changelogRepository,
-        private IssueRepositoryInterface       $issueRepository,
+        private ChangelogRepositoryInterface $changelogRepository,
+        private IssueRepositoryInterface $issueRepository,
         private GithubIssueRepositoryInterface $githubIssueRepository,
         private ChangelogDeciderInterface $changelogDecider
     ) {
