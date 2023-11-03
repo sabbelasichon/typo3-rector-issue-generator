@@ -8,7 +8,7 @@ use Ssch\Typo3rectorIssueGenerator\Contract\IssueRepositoryInterface;
 use Ssch\Typo3rectorIssueGenerator\Dto\Changelog;
 use Ssch\Typo3rectorIssueGenerator\Dto\Issue;
 
-final readonly class SqlLite3IssueRepository implements IssueRepositoryInterface
+final class SqlLite3IssueRepository implements IssueRepositoryInterface
 {
     public function __construct(
         private \SQLite3 $database

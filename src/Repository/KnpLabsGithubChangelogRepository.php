@@ -11,7 +11,7 @@ use Ssch\Typo3rectorIssueGenerator\Contract\ChangelogRepositoryInterface;
 use Ssch\Typo3rectorIssueGenerator\Dto\Changelog;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
-final readonly class KnpLabsGithubChangelogRepository implements ChangelogRepositoryInterface
+final class KnpLabsGithubChangelogRepository implements ChangelogRepositoryInterface
 {
     public function __construct(
         private Client $client

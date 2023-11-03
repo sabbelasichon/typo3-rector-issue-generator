@@ -9,7 +9,7 @@ use Ssch\Typo3rectorIssueGenerator\Contract\ChangelogRepositoryInterface;
 use Ssch\Typo3rectorIssueGenerator\Dto\Changelog;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
-final readonly class InMemoryChangelogRepository implements ChangelogRepositoryInterface
+final class InMemoryChangelogRepository implements ChangelogRepositoryInterface
 {
     /**
      * @param Changelog[] $changelogs

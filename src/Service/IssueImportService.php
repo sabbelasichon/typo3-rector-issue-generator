@@ -13,7 +13,7 @@ use Ssch\Typo3rectorIssueGenerator\Dto\GithubIssue;
 use Ssch\Typo3rectorIssueGenerator\Dto\Issue;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
-final readonly class IssueImportService
+final class IssueImportService
 {
     public function __construct(
         private ChangelogRepositoryInterface   $changelogRepository,
