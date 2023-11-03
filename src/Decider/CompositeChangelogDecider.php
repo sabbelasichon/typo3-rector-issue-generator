@@ -12,7 +12,7 @@ final class CompositeChangelogDecider implements ChangelogDeciderInterface
      * @param ChangelogDeciderInterface[] $deciders
      */
     public function __construct(
-        private array $deciders
+        private readonly array $deciders
     ) {
     }
 

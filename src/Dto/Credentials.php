@@ -7,9 +7,9 @@ namespace Ssch\Typo3rectorIssueGenerator\Dto;
 final class Credentials
 {
     public function __construct(
-        private string $username,
-        private string $repositoryName,
-        private string $accessToken
+        private readonly string $username,
+        private readonly string $repositoryName,
+        private readonly string $accessToken
     ) {
     }
 

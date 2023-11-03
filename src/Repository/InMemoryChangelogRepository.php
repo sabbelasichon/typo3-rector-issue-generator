@@ -15,7 +15,7 @@ final class InMemoryChangelogRepository implements ChangelogRepositoryInterface
      * @param Changelog[] $changelogs
      */
     public function __construct(
-        private array $changelogs
+        private readonly array $changelogs
     ) {
     }
 

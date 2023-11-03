@@ -9,7 +9,7 @@ final class Version implements \Stringable
     private string $majorVersion;
 
     public function __construct(
-        private string $version
+        private readonly string $version
     ) {
         $minorParts = explode('.', $this->version);
         $this->majorVersion = array_shift($minorParts);

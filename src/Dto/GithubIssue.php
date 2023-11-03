@@ -10,9 +10,9 @@ final class GithubIssue
      * @param string[] $labels
      */
     private function __construct(
-        private string $title,
-        private string $message,
-        private array $labels
+        private readonly string $title,
+        private readonly string $message,
+        private readonly array $labels
     ) {
     }
 

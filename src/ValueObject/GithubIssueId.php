@@ -7,7 +7,7 @@ namespace Ssch\Typo3rectorIssueGenerator\ValueObject;
 final class GithubIssueId implements \Stringable
 {
     public function __construct(
-        private int $id
+        private readonly int $id
     ) {
     }
 
