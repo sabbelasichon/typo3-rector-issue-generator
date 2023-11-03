@@ -6,10 +6,10 @@ namespace Ssch\Typo3rectorIssueGenerator\ValueObject;
 
 final class Version implements \Stringable
 {
-    private string $majorVersion;
+    private ?string $majorVersion;
 
     public function __construct(
-        private string $version
+        private readonly string $version
     ) {
         $minorParts = explode('.', $this->version);
         $this->majorVersion = array_shift($minorParts);
@@ -20,7 +20,7 @@ final class Version implements \Stringable
         return $this->version;
     }
 
-    public function getMajorVersion(): string
+    public function getMajorVersion(): ?string
     {
         return $this->majorVersion;
     }

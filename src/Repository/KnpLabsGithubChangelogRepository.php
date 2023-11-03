@@ -14,7 +14,7 @@ use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 final class KnpLabsGithubChangelogRepository implements ChangelogRepositoryInterface
 {
     public function __construct(
-        private Client $client
+        private readonly Client $client
     ) {
     }
 

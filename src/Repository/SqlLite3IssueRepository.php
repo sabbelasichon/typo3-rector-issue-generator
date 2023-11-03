@@ -11,7 +11,7 @@ use Ssch\Typo3rectorIssueGenerator\Dto\Issue;
 final class SqlLite3IssueRepository implements IssueRepositoryInterface
 {
     public function __construct(
-        private \SQLite3 $database
+        private readonly \SQLite3 $database
     ) {
         $this->database->exec("CREATE TABLE IF NOT EXISTS issues(
                 id INTEGER PRIMARY KEY AUTOINCREMENT, 

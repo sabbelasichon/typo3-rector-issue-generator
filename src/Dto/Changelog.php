@@ -41,7 +41,7 @@ final class Changelog
             }
         }
 
-        $this->labels = [$version->__toString(), $version->getMajorVersion(), $type];
+        $this->labels = array_filter([$version->__toString(), $version->getMajorVersion(), $type]);
         $this->title = $title;
 
         $fileNameWithHtml = str_replace('.rst', '.html', $fileName);

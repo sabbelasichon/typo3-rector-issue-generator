@@ -9,8 +9,8 @@ use Ssch\Typo3rectorIssueGenerator\ValueObject\GithubIssueId;
 final class Issue
 {
     public function __construct(
-        private string $hash,
-        private GithubIssueId $githubIssueId
+        private readonly string $hash,
+        private readonly GithubIssueId $githubIssueId
     ) {
     }
 
