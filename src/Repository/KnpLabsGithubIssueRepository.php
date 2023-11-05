@@ -29,8 +29,11 @@ final class KnpLabsGithubIssueRepository implements GithubIssueRepositoryInterfa
             'body' => $githubIssue->getMessage(),
         ]);
 
+        sleep(1);
+
         foreach ($githubIssue->getLabels() as $label) {
             $issueApi->labels()->add($this->credentials->getUsername(), $this->credentials->getRepositoryName(), $remoteIssue['number'], $label);
+            sleep(1);
         }
 
         return new GithubIssueId($remoteIssue['number']);
