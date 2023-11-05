@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Dto;
 
+use Pandoc\Pandoc;
+use Ssch\Typo3rectorIssueGenerator\Utility\GeneralUtility;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
 final class Changelog
@@ -41,13 +43,24 @@ final class Changelog
             }
         }
 
-        $this->labels = array_filter([$version->__toString(), $version->getMajorVersion(), $type]);
+        preg_match('/\.\. index::(.*)/', $message, $matches);
+        $tags = GeneralUtility::trimExplode(',', $matches[1] ?? '');
+
+        $this->labels = array_filter([$version->__toString(), $version->getMajorVersion(), $type, ...$tags]);
         $this->title = $title;
 
         $fileNameWithHtml = str_replace('.rst', '.html', $fileName);
         $url = sprintf(self::PUBLIC_CHANGELOG_URL, $version, $fileNameWithHtml);
 
-        $this->message = $title . "\n" . "\n" . $url . "\n" . implode("\n", $issueBody);
+        $output = (new Pandoc)
+            ->from('rst')
+            ->to('gfm') // GitHub-Flavored Markdown
+            ->input($message)
+            ->run();
+
+        $output = preg_replace('/See `(\d+)`/', 'See [$1](https://forge.typo3.org/issues/$1)', $output);
+
+        $this->message = $title . "\n" . "\n" . $url . "\n" . "\n" . $output;
         $this->hash = md5($fileName);
         $this->fileName = $fileName;
     }
