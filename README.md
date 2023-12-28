@@ -7,8 +7,8 @@ This tool uses pandoc to convert the changelogs from the TYPO3 Documentation to 
 It is an external tool that needs to be installed on your system like so (if you use Ubuntu):
 
 ```bash
-wget https://github.com/jgm/pandoc/releases/download/2.15/pandoc-2.15-1-amd64.deb
-sudo dpkg -i pandoc-2.15-1-amd64.deb
+wget https://github.com/jgm/pandoc/releases/download/3.1.11/pandoc-3.1.11-1-amd64.deb
+sudo dpkg -i pandoc-3.1.11-1-amd64.deb
 ```
 
 1. Run git clone `git@github.com:sabbelasichon/typo3-rector-issue-generator.git`
