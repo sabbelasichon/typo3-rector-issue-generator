@@ -56,11 +56,12 @@ final class Changelog
             ->from('rst')
             ->to('gfm') // GitHub-Flavored Markdown
             ->input($message)
+            ->noStandalone()
             ->run();
 
-        $output = preg_replace('/See `(\d+)`/', 'See [$1](https://forge.typo3.org/issues/$1)', $output);
+        $output = preg_replace('/`(\d+)`/', '[$1](https://forge.typo3.org/issues/$1)', $output);
 
-        $this->message = $title . "\n" . "\n" . $url . "\n" . "\n" . $output;
+        $this->message = $title . "\n\n" . $url . "\n\n" . $output;
         $this->hash = md5($fileName);
         $this->fileName = $fileName;
     }

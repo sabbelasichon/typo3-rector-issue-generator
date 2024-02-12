@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?php
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use Github\AuthMethod;
 use Github\Client;
@@ -22,7 +22,7 @@ use Symfony\Component\Console\SingleCommandApplication;
 use Symfony\Component\Dotenv\Dotenv;
 
 $dotenv = new Dotenv();
-$dotenv->load(__DIR__.'/.env');
+$dotenv->load(__DIR__.'/../.env');
 
 (new SingleCommandApplication())
     ->setName('Import TYPO3 Changelogs')
@@ -31,14 +31,14 @@ $dotenv->load(__DIR__.'/.env');
     ->setCode(function (InputInterface $input, OutputInterface $output): int {
 
         $credentials = new Credentials('sabbelasichon', 'typo3-rector', $_ENV['GITHUB_ACCESS_TOKEN']);
-        $versions = array_map(fn(string $version) => new Version($version), $input->getArgument('versions'));
+        $versions = array_map(static fn(string $version) => new Version($version), $input->getArgument('versions'));
 
         $client = new Client();
         $client->authenticate($credentials->getAccessToken(), null, AuthMethod::ACCESS_TOKEN);
 
         (new IssueImportService(
             new KnpLabsGithubChangelogRepository($client),
-            new SqlLite3IssueRepository(new SQLite3(__DIR__ . '/db/issues.db')),
+            new SqlLite3IssueRepository(new SQLite3(__DIR__ . '/../db/issues.db')),
             new KnpLabsGithubIssueRepository($client, $credentials),
             new CompositeChangelogDecider([new NonIndexDecider(), new NonFeatureDecider()])
         ))->import($versions, new SymfonyConsoleOutput($output));
