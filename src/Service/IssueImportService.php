@@ -45,7 +45,15 @@ final class IssueImportService
 
                 $githubIssueId = $this->githubIssueRepository->save(GithubIssue::fromChangelog($changelog));
 
-                $this->issueRepository->save(new Issue($changelog->getHash(), $githubIssueId));
+                $this->issueRepository->save(
+                    new Issue(
+                        $changelog->getHash(),
+                        $githubIssueId,
+                        $changelog->getType(),
+                        $changelog->getTitle(),
+                        $changelog->getIssueId()
+                    )
+                );
 
                 $importedIssues[] = sprintf('Inserted issue "%s" with file path "%s"', $githubIssueId, $changelog->getFileName());
             }

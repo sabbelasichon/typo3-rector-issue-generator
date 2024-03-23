@@ -26,12 +26,14 @@ $dotenv->load(__DIR__.'/../.env');
 
 (new SingleCommandApplication())
     ->setName('Import TYPO3 Changelogs')
-    ->setVersion('1.0.0')
+    ->setVersion('1.1.0')
     ->addArgument('versions', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'The TYPO3 Versions')
     ->setCode(function (InputInterface $input, OutputInterface $output): int {
 
         $credentials = new Credentials('sabbelasichon', 'typo3-rector', $_ENV['GITHUB_ACCESS_TOKEN']);
-        $versions = array_map(static fn(string $version) => new Version($version), $input->getArgument('versions'));
+        /** @var string[] $inputVersions */
+        $inputVersions = $input->getArgument('versions');
+        $versions = array_map(static fn(string $version) => new Version($version), $inputVersions);
 
         $client = new Client();
         $client->authenticate($credentials->getAccessToken(), null, AuthMethod::ACCESS_TOKEN);

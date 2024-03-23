@@ -10,7 +10,10 @@ final class Issue
 {
     public function __construct(
         private readonly string $hash,
-        private readonly GithubIssueId $githubIssueId
+        private readonly GithubIssueId $githubIssueId,
+        private readonly string $type,
+        private readonly string $title,
+        private readonly int $issueId
     ) {
     }
 
@@ -22,5 +25,20 @@ final class Issue
     public function getGithubIssueId(): GithubIssueId
     {
         return $this->githubIssueId;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+
+    public function getIssueId(): int
+    {
+        return $this->issueId;
     }
 }
