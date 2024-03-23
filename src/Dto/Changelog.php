@@ -21,6 +21,16 @@ final class Changelog
 
     private string $fileName;
 
+    /**
+     * Breaking|Deprecation|Important|Feature
+     */
+    private string $type;
+
+    /**
+     * Forge issue id
+     */
+    private int $issueId;
+
     private string $title;
 
     private const PUBLIC_CHANGELOG_URL = 'https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/%s/%s';
@@ -29,6 +39,7 @@ final class Changelog
     {
         $nameParts = explode('-', $fileName);
         $type = array_shift($nameParts);
+        $this->type = $type;
         $issueBody = explode("\n", $message);
         $nextLineIsTitle = false;
         $title = '';
@@ -59,6 +70,9 @@ final class Changelog
             ->noStandalone()
             ->run();
 
+        preg_match('/See :issue:`(\d+)`/', $message, $issueIdMatches);
+        $this->issueId = (int)($issueIdMatches[1] ?? 0);
+
         $output = preg_replace('/`(\d+)`/', '[$1](https://forge.typo3.org/issues/$1)', $output);
 
         $this->message = $title . "\n\n" . $url . "\n\n" . $output;
@@ -87,6 +101,16 @@ final class Changelog
     public function getFileName(): string
     {
         return $this->fileName;
+    }
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function getIssueId(): int
+    {
+        return $this->issueId;
     }
 
     public function getTitle(): string

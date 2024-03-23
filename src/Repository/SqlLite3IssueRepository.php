@@ -14,9 +14,12 @@ final class SqlLite3IssueRepository implements IssueRepositoryInterface
         private readonly \SQLite3 $database
     ) {
         $this->database->exec("CREATE TABLE IF NOT EXISTS issues(
-                id INTEGER PRIMARY KEY AUTOINCREMENT, 
-                github_issue_id INTEGER, 
-                hash TEXT NOT NULL DEFAULT '0'
+            id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            github_issue_id INTEGER, 
+            hash TEXT NOT NULL DEFAULT '0',
+            type TEXT,
+            title TEXT,
+            issue_id INTEGER
         )");
     }
 
@@ -40,13 +43,16 @@ final class SqlLite3IssueRepository implements IssueRepositoryInterface
 
     public function save(Issue $issue): void
     {
-        $statement = $this->database->prepare("INSERT INTO issues (hash,github_issue_id) VALUES (:hash, :github_issue_id)");
+        $statement = $this->database->prepare("INSERT INTO issues (hash,github_issue_id,type,title,issue_id) VALUES (:hash, :github_issue_id, :type, :title, :issue_id)");
         if ($statement === false) {
             throw new \UnexpectedValueException('Could not prepare database statement');
         }
 
         $statement->bindValue(':hash', $issue->getHash());
         $statement->bindValue(':github_issue_id', $issue->getGithubIssueId());
+        $statement->bindValue(':type', $issue->getType());
+        $statement->bindValue(':title', $issue->getTitle());
+        $statement->bindValue(':issue_id', $issue->getIssueId());
 
         $statement->execute();
     }
