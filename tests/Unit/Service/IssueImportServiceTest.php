@@ -182,7 +182,8 @@ REST;
     public function test(): void
     {
         // Arrange
-        $versions = [new Version('12.4')];
+        $version = new Version('12.4');
+        $versions = [$version];
 
         // Act
         $this->subject->import($versions, new NullOutput());
@@ -193,14 +194,16 @@ REST;
             new GithubIssueId(1),
             'Breaking',
             'Breaking: #92238 - Service injection in Extbase validators',
-            92238
+            92238,
+            $version
         );
         $deprecationIssue = new Issue(
             '82ac14e7cee0d61b7be3d3916e9e32d6',
             new GithubIssueId(2),
             'Deprecation',
             'Deprecation: #75625 - Deprecated cache clearing options',
-            75625
+            75625,
+            $version
         );
         self::assertEquals([$breakingIssue, $deprecationIssue], $this->issueRepository->getIssues());
     }

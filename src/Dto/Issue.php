@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\Typo3rectorIssueGenerator\Dto;
 
 use Ssch\Typo3rectorIssueGenerator\ValueObject\GithubIssueId;
+use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
 final class Issue
 {
@@ -13,7 +14,8 @@ final class Issue
         private readonly GithubIssueId $githubIssueId,
         private readonly string $type,
         private readonly string $title,
-        private readonly int $issueId
+        private readonly int $issueId,
+        private readonly Version $version
     ) {
     }
 
@@ -40,5 +42,10 @@ final class Issue
     public function getIssueId(): int
     {
         return $this->issueId;
+    }
+
+    public function getVersion(): Version
+    {
+        return $this->version;
     }
 }

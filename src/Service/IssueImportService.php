@@ -51,7 +51,8 @@ final class IssueImportService
                         $githubIssueId,
                         $changelog->getType(),
                         $changelog->getTitle(),
-                        $changelog->getIssueId()
+                        $changelog->getIssueId(),
+                        $version
                     )
                 );
 
