@@ -12,4 +12,6 @@ interface IssueRepositoryInterface
     public function exists(Changelog $changelog): bool;
 
     public function save(Issue $issue): void;
+
+    public function update(Issue $issue): void;
 }

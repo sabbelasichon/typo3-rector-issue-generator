@@ -11,6 +11,7 @@ use Ssch\Typo3rectorIssueGenerator\Contract\IssueRepositoryInterface;
 use Ssch\Typo3rectorIssueGenerator\Contract\OutputInterface;
 use Ssch\Typo3rectorIssueGenerator\Dto\GithubIssue;
 use Ssch\Typo3rectorIssueGenerator\Dto\Issue;
+use Ssch\Typo3rectorIssueGenerator\ValueObject\GithubIssueId;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
 final class IssueImportService
@@ -26,7 +27,7 @@ final class IssueImportService
     /**
      * @param Version[] $versions
      */
-    public function import(array $versions, OutputInterface $output): void
+    public function import(array $versions, OutputInterface $output, bool $update): void
     {
         $importedIssues = [];
         foreach ($versions as $version) {
@@ -40,6 +41,18 @@ final class IssueImportService
                 $output->advance();
 
                 if ($this->issueRepository->exists($changelog)) {
+                    if ($update) {
+                        $this->issueRepository->update(
+                            new Issue(
+                                $changelog->getHash(),
+                                new GithubIssueId(0),
+                                $changelog->getType(),
+                                $changelog->getTitle(),
+                                $changelog->getIssueId(),
+                                $version
+                            )
+                        );
+                    }
                     continue;
                 }
 

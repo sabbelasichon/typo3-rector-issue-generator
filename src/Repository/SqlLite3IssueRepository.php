@@ -58,4 +58,20 @@ final class SqlLite3IssueRepository implements IssueRepositoryInterface
 
         $statement->execute();
     }
+
+    public function update(Issue $issue): void
+    {
+        $statement = $this->database->prepare("UPDATE issues SET type = :type, title = :title, issue_id = :issue_id, typo3_version = :typo3_version WHERE hash = :hash");
+        if ($statement === false) {
+            throw new \UnexpectedValueException('Could not prepare database statement');
+        }
+
+        $statement->bindValue(':type', $issue->getType());
+        $statement->bindValue(':title', $issue->getTitle());
+        $statement->bindValue(':issue_id', $issue->getIssueId());
+        $statement->bindValue(':typo3_version', (string)$issue->getVersion());
+        $statement->bindValue(':hash', $issue->getHash());
+
+        $statement->execute();
+    }
 }

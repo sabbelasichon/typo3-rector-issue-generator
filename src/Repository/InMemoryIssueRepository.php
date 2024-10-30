@@ -38,4 +38,14 @@ final class InMemoryIssueRepository implements IssueRepositoryInterface
 
         return false;
     }
+
+    public function update(Issue $issue): void
+    {
+        foreach ($this->issues as $index => $i) {
+            if ($i->getHash() === $issue->getHash()) {
+                $this->issues[$index] = $issue;
+                return;
+            }
+        }
+    }
 }
