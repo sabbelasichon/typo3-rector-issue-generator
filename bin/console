@@ -17,6 +17,7 @@ use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\SingleCommandApplication;
 use Symfony\Component\Dotenv\Dotenv;
@@ -28,6 +29,7 @@ $dotenv->load(__DIR__.'/../.env');
     ->setName('Import TYPO3 Changelogs')
     ->setVersion('1.1.0')
     ->addArgument('versions', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'The TYPO3 Versions')
+    ->addOption('with-feature', null, InputOption::VALUE_NONE, 'Import Features as well')
     ->setCode(function (InputInterface $input, OutputInterface $output): int {
 
         $credentials = new Credentials('sabbelasichon', 'typo3-rector', $_ENV['GITHUB_ACCESS_TOKEN']);
@@ -38,11 +40,18 @@ $dotenv->load(__DIR__.'/../.env');
         $client = new Client();
         $client->authenticate($credentials->getAccessToken(), null, AuthMethod::ACCESS_TOKEN);
 
+        $deciders = [];
+        $deciders[] = new NonIndexDecider();
+
+        if (! $input->getOption('with-feature')) {
+            $deciders[] = new NonFeatureDecider();
+        }
+
         (new IssueImportService(
             new KnpLabsGithubChangelogRepository($client),
             new SqlLite3IssueRepository(new SQLite3(__DIR__ . '/../db/issues.db')),
             new KnpLabsGithubIssueRepository($client, $credentials),
-            new CompositeChangelogDecider([new NonIndexDecider(), new NonFeatureDecider()])
+            new CompositeChangelogDecider($deciders)
         ))->import($versions, new SymfonyConsoleOutput($output));
 
         return Command::SUCCESS;
