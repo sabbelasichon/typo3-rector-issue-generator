@@ -3,7 +3,7 @@
   "description": "Generate Issues for TYPO3 Rector from TYPO3 Changelogs",
   "type": "project",
   "require": {
-    "php": "~8.1.0",
+    "php": "~8.3.0",
     "ext-sqlite3": "*",
     "knplabs/github-api": "^3.12",
     "nyholm/psr7": "^1.8",
