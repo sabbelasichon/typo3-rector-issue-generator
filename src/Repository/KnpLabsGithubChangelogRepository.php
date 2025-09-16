@@ -42,7 +42,7 @@ final class KnpLabsGithubChangelogRepository implements ChangelogRepositoryInter
                 continue;
             }
 
-            usleep(500000);
+            usleep(5000);
 
             $changelogs[] = new Changelog($fileName, $remoteChangeLog, $version);
         }
