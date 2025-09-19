@@ -9,13 +9,13 @@ use Ssch\Typo3rectorIssueGenerator\Contract\ChangelogRepositoryInterface;
 use Ssch\Typo3rectorIssueGenerator\Dto\Changelog;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
-final class InMemoryChangelogRepository implements ChangelogRepositoryInterface
+final readonly class InMemoryChangelogRepository implements ChangelogRepositoryInterface
 {
     /**
      * @param Changelog[] $changelogs
      */
     public function __construct(
-        private readonly array $changelogs
+        private array $changelogs
     ) {
     }
 

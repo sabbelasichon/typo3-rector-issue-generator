@@ -6,13 +6,13 @@ namespace Ssch\Typo3rectorIssueGenerator\Decider;
 
 use Ssch\Typo3rectorIssueGenerator\Contract\ChangelogDeciderInterface;
 
-final class CompositeChangelogDecider implements ChangelogDeciderInterface
+final readonly class CompositeChangelogDecider implements ChangelogDeciderInterface
 {
     /**
      * @param ChangelogDeciderInterface[] $deciders
      */
     public function __construct(
-        private readonly array $deciders
+        private array $deciders
     ) {
     }
 

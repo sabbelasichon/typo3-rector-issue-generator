@@ -11,11 +11,11 @@ use Ssch\Typo3rectorIssueGenerator\Dto\Credentials;
 use Ssch\Typo3rectorIssueGenerator\Dto\GithubIssue;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\GithubIssueId;
 
-final class KnpLabsGithubIssueRepository implements GithubIssueRepositoryInterface
+final readonly class KnpLabsGithubIssueRepository implements GithubIssueRepositoryInterface
 {
     public function __construct(
-        private readonly Client $client,
-        private readonly Credentials $credentials
+        private Client $client,
+        private Credentials $credentials
     ) {
     }
 
