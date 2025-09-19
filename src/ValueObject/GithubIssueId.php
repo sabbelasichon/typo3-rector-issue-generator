@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\ValueObject;
 
-final class GithubIssueId implements \Stringable
+final readonly class GithubIssueId implements \Stringable
 {
     public function __construct(
-        private readonly int $id
+        private int $id
     ) {
     }
 
