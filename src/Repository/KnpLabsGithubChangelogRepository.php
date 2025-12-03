@@ -21,7 +21,7 @@ final readonly class KnpLabsGithubChangelogRepository implements ChangelogReposi
     public function findByVersion(Version $version, ChangelogDeciderInterface $changelogDecider): array
     {
         $repo = new Repo($this->client);
-        $remoteChangelogs = $repo->contents()->configure()->show('TYPO3', 'TYPO3.CMS', 'typo3/sysext/core/Documentation/Changelog/' . $version->__toString());
+        $remoteChangelogs = $repo->contents()->configure()->show('TYPO3', 'typo3', 'typo3/sysext/core/Documentation/Changelog/' . $version->__toString());
 
         $changelogs = [];
 
@@ -36,7 +36,7 @@ final readonly class KnpLabsGithubChangelogRepository implements ChangelogReposi
                 continue;
             }
 
-            $remoteChangeLog = $repo->contents()->configure()->show('TYPO3', 'TYPO3.CMS', $changelogPath['path']);
+            $remoteChangeLog = $repo->contents()->configure()->show('TYPO3', 'typo3', $changelogPath['path']);
 
             if (! is_string($remoteChangeLog)) {
                 continue;
