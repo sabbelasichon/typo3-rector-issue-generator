@@ -21,4 +21,9 @@ final class InMemoryGithubIssueRepository implements GithubIssueRepositoryInterf
 
         return new GithubIssueId(count($this->githubIssues));
     }
+
+    public function update(GithubIssue $githubIssue, int $githubIssueId): GithubIssueId
+    {
+        return new GithubIssueId($githubIssueId);
+    }
 }

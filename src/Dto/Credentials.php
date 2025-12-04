@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Dto;
 
-final class Credentials
+final readonly class Credentials
 {
     public function __construct(
-        private readonly string $username,
-        private readonly string $repositoryName,
-        private readonly string $accessToken
+        private string $username,
+        private string $repositoryName,
+        private string $accessToken
     ) {
     }
 

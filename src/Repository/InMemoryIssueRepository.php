@@ -39,6 +39,17 @@ final class InMemoryIssueRepository implements IssueRepositoryInterface
         return false;
     }
 
+    public function get(Changelog $changelog): ?Issue
+    {
+        foreach ($this->issues as $issue) {
+            if ($issue->getHash() === $changelog->getHash()) {
+                return $issue;
+            }
+        }
+
+        return null;
+    }
+
     public function update(Issue $issue): void
     {
         foreach ($this->issues as $index => $i) {

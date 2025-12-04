@@ -7,15 +7,15 @@ namespace Ssch\Typo3rectorIssueGenerator\Dto;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\GithubIssueId;
 use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
-final class Issue
+final readonly class Issue
 {
     public function __construct(
-        private readonly string $hash,
-        private readonly GithubIssueId $githubIssueId,
-        private readonly string $type,
-        private readonly string $title,
-        private readonly int $issueId,
-        private readonly Version $version
+        private string $hash,
+        private GithubIssueId $githubIssueId,
+        private string $type,
+        private string $title,
+        private int $issueId,
+        private Version $version
     ) {
     }
 

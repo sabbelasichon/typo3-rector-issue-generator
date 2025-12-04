@@ -13,4 +13,6 @@ interface ChangelogRepositoryInterface
      * @return Changelog[]
      */
     public function findByVersion(Version $version, ChangelogDeciderInterface $changelogDecider): array;
+
+    public function findByChangelogUrl(Version $version, string $changelogFileName, ChangelogDeciderInterface $changelogDecider): ?Changelog;
 }

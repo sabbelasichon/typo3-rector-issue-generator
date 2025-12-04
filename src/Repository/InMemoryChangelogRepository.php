@@ -32,4 +32,12 @@ final readonly class InMemoryChangelogRepository implements ChangelogRepositoryI
 
         return $changelogs;
     }
+
+    public function findByChangelogUrl(Version $version, string $changelogFileName, ChangelogDeciderInterface $changelogDecider): ?Changelog
+    {
+        if ($changelogDecider($changelogFileName) === false) {
+            return new Changelog($changelogFileName, '', $version);
+        }
+        return null;
+    }
 }

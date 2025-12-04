@@ -11,6 +11,11 @@ final readonly class GithubIssueId implements \Stringable
     ) {
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
     public function __toString()
     {
         return (string) $this->id;

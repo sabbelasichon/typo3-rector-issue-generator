@@ -7,6 +7,8 @@ namespace Ssch\Typo3rectorIssueGenerator\Repository;
 use Ssch\Typo3rectorIssueGenerator\Contract\IssueRepositoryInterface;
 use Ssch\Typo3rectorIssueGenerator\Dto\Changelog;
 use Ssch\Typo3rectorIssueGenerator\Dto\Issue;
+use Ssch\Typo3rectorIssueGenerator\ValueObject\GithubIssueId;
+use Ssch\Typo3rectorIssueGenerator\ValueObject\Version;
 
 final readonly class SqlLite3IssueRepository implements IssueRepositoryInterface
 {
@@ -40,6 +42,35 @@ final readonly class SqlLite3IssueRepository implements IssueRepositoryInterface
         }
 
         return $result->fetchArray(SQLITE3_ASSOC) !== false;
+    }
+
+    public function get(Changelog $changelog): ?Issue
+    {
+        $statement = $this->database->prepare("SELECT * FROM issues WHERE hash=:hash LIMIT 1");
+        if ($statement === false) {
+            throw new \UnexpectedValueException('Could not prepare database statement');
+        }
+
+        $statement->bindValue(':hash', $changelog->getHash());
+
+        $result = $statement->execute();
+        if ($result === false) {
+            return null;
+        }
+
+        $row = $result->fetchArray(SQLITE3_ASSOC);
+        if ($row === false) {
+            return null;
+        }
+
+        return new Issue(
+            $changelog->getHash(),
+            new GithubIssueId($row['github_issue_id']),
+            $changelog->getType(),
+            $changelog->getTitle(),
+            $changelog->getIssueId(),
+            new Version($row['typo3_version'])
+        );
     }
 
     public function save(Issue $issue): void

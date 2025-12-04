@@ -10,4 +10,6 @@ use Ssch\Typo3rectorIssueGenerator\ValueObject\GithubIssueId;
 interface GithubIssueRepositoryInterface
 {
     public function save(GithubIssue $githubIssue): GithubIssueId;
+
+    public function update(GithubIssue $githubIssue, int $githubIssueId): GithubIssueId;
 }

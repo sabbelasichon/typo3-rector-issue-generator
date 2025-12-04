@@ -36,17 +36,32 @@ final readonly class KnpLabsGithubChangelogRepository implements ChangelogReposi
                 continue;
             }
 
-            $remoteChangeLog = $repo->contents()->configure()->show('TYPO3', 'typo3', $changelogPath['path']);
-
-            if (! is_string($remoteChangeLog)) {
+            $remoteChangelog = $repo->contents()->configure()->show('TYPO3', 'typo3', $changelogPath['path']);
+            if (! is_string($remoteChangelog)) {
                 continue;
             }
 
             usleep(5000);
 
-            $changelogs[] = new Changelog($fileName, $remoteChangeLog, $version);
+            $changelogs[] = new Changelog($fileName, $remoteChangelog, $version);
         }
 
         return $changelogs;
+    }
+
+    public function findByChangelogUrl(Version $version, string $changelogFileName, ChangelogDeciderInterface $changelogDecider): ?Changelog
+    {
+        if ($changelogDecider($changelogFileName) === false) {
+            return null;
+        }
+
+        $repo = new Repo($this->client);
+
+        $remoteChangelog = $repo->contents()->configure()->show('TYPO3', 'typo3', 'typo3/sysext/core/Documentation/Changelog/' . $version->__toString() . '/' . $changelogFileName);
+        if (! is_string($remoteChangelog)) {
+            return null;
+        }
+
+        return new Changelog($changelogFileName, $remoteChangelog, $version);
     }
 }

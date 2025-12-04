@@ -4,21 +4,27 @@ declare(strict_types=1);
 
 namespace Ssch\Typo3rectorIssueGenerator\Dto;
 
-final class GithubIssue
+final readonly class GithubIssue
 {
     /**
      * @param string[] $labels
      */
     private function __construct(
-        private readonly string $title,
-        private readonly string $message,
-        private readonly array $labels
+        private int $id,
+        private string $title,
+        private string $message,
+        private array $labels
     ) {
     }
 
-    public static function fromChangelog(Changelog $changelog): self
+    public static function fromChangelog(Changelog $changelog, int $id = 0): self
     {
-        return new self($changelog->getTitle(), $changelog->getMessage(), $changelog->getLabels());
+        return new self($id, $changelog->getTitle(), $changelog->getMessage(), $changelog->getLabels());
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getTitle(): string

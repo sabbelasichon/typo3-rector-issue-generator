@@ -33,7 +33,7 @@ final class Changelog
 
     private string $title;
 
-    private const PUBLIC_CHANGELOG_URL = 'https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/%s/%s';
+    private const string PUBLIC_CHANGELOG_URL = 'https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/%s/%s';
 
     public function __construct(string $fileName, string $message, Version $version)
     {

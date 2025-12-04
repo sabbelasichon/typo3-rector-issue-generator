@@ -33,8 +33,21 @@ final readonly class KnpLabsGithubIssueRepository implements GithubIssueReposito
 
         foreach ($githubIssue->getLabels() as $label) {
             $issueApi->labels()->add($this->credentials->getUsername(), $this->credentials->getRepositoryName(), $remoteIssue['number'], $label);
-            usleep(500000);
+            usleep(5000);
         }
+
+        return new GithubIssueId($remoteIssue['number']);
+    }
+
+    public function update(GithubIssue $githubIssue, int $githubIssueId): GithubIssueId
+    {
+        /** @var Issue $issueApi */
+        $issueApi = $this->client->api('issue');
+
+        $remoteIssue = $issueApi->update($this->credentials->getUsername(), $this->credentials->getRepositoryName(), $githubIssueId, [
+            'title' => $githubIssue->getTitle(),
+            'body' => $githubIssue->getMessage(),
+        ]);
 
         return new GithubIssueId($remoteIssue['number']);
     }
