@@ -25,17 +25,18 @@ final readonly class IssueUpdateService
 
     public function update(OutputInterface $output, string $changelogUrl): void
     {
-        if (!str_starts_with($changelogUrl, 'https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/')) {
+        if (! str_starts_with($changelogUrl, 'https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/')) {
             $output->write('ERROR: URL does not start with https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/');
             return;
         }
 
-        if (!str_ends_with($changelogUrl, '.html')) {
+        if (! str_ends_with($changelogUrl, '.html')) {
             $output->write('ERROR: URL does not end with .html');
             return;
         }
 
-        $changelogFileName = str_replace(['https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/', '.html'],
+        $changelogFileName = str_replace(
+            ['https://docs.typo3.org/c/typo3/cms-core/main/en-us/Changelog/', '.html'],
             ['', '.rst'],
             $changelogUrl
         );
@@ -55,11 +56,11 @@ final readonly class IssueUpdateService
 
         $version = new Version($version);
         $changelog = $this->changelogRepository->findByChangelogUrl($version, $fileName, $this->changelogDecider);
-        if (!$changelog instanceof Changelog) {
+        if (! $changelog instanceof Changelog) {
             return;
         }
 
-        if (!$this->issueRepository->exists($changelog)) {
+        if (! $this->issueRepository->exists($changelog)) {
             return;
         }
 

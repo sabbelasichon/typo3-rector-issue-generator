@@ -63,7 +63,7 @@ final class Changelog
         $fileNameWithHtml = str_replace('.rst', '.html', $fileName);
         $url = sprintf(self::PUBLIC_CHANGELOG_URL, $version, $fileNameWithHtml);
 
-        $output = (new Pandoc)
+        $output = (new Pandoc())
             ->from('rst')
             ->to('gfm') // GitHub-Flavored Markdown
             ->input($message)
@@ -71,7 +71,7 @@ final class Changelog
             ->run();
 
         preg_match('/See :issue:`(\d+)`/', $message, $issueIdMatches);
-        $this->issueId = (int)($issueIdMatches[1] ?? 0);
+        $this->issueId = (int) ($issueIdMatches[1] ?? 0);
 
         $output = preg_replace('/`(\d+)`/', '[$1](https://forge.typo3.org/issues/$1)', $output);
 

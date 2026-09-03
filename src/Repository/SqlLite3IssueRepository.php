@@ -85,7 +85,7 @@ final readonly class SqlLite3IssueRepository implements IssueRepositoryInterface
         $statement->bindValue(':type', $issue->getType());
         $statement->bindValue(':title', $issue->getTitle());
         $statement->bindValue(':issue_id', $issue->getIssueId());
-        $statement->bindValue(':typo3_version', (string)$issue->getVersion());
+        $statement->bindValue(':typo3_version', (string) $issue->getVersion());
 
         $statement->execute();
     }
@@ -100,7 +100,7 @@ final readonly class SqlLite3IssueRepository implements IssueRepositoryInterface
         $statement->bindValue(':type', $issue->getType());
         $statement->bindValue(':title', $issue->getTitle());
         $statement->bindValue(':issue_id', $issue->getIssueId());
-        $statement->bindValue(':typo3_version', (string)$issue->getVersion());
+        $statement->bindValue(':typo3_version', (string) $issue->getVersion());
         $statement->bindValue(':hash', $issue->getHash());
 
         $statement->execute();
