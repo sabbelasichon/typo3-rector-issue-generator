@@ -5,6 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use Github\AuthMethod;
 use Github\Client;
 use Ssch\Typo3rectorIssueGenerator\Decider\CompositeChangelogDecider;
+use Ssch\Typo3rectorIssueGenerator\Decider\ChangelogNumberDecider;
 use Ssch\Typo3rectorIssueGenerator\Decider\NonFeatureDecider;
 use Ssch\Typo3rectorIssueGenerator\Decider\NonIndexDecider;
 use Ssch\Typo3rectorIssueGenerator\Dto\Credentials;
@@ -31,6 +32,7 @@ $dotenv->load(__DIR__.'/../.env');
     ->addArgument('versions', InputArgument::IS_ARRAY | InputArgument::REQUIRED, 'The TYPO3 Versions')
     ->addOption('with-feature', null, InputOption::VALUE_NONE, 'Import Features as well')
     ->addOption('update', null, InputOption::VALUE_NONE, 'Update issues in the DB')
+    ->addOption('changelog', null, InputOption::VALUE_REQUIRED, 'Import a single changelog file by its number')
     ->setCode(function (InputInterface $input, OutputInterface $output): int {
 
         $credentials = new Credentials('sabbelasichon', 'typo3-rector', $_ENV['GITHUB_ACCESS_TOKEN']);
@@ -44,7 +46,12 @@ $dotenv->load(__DIR__.'/../.env');
         $deciders = [];
         $deciders[] = new NonIndexDecider();
 
-        if (! $input->getOption('with-feature')) {
+        /** @var string|null $changelogNumber */
+        $changelogNumber = $input->getOption('changelog');
+
+        if (null !== $changelogNumber) {
+            $deciders[] = new ChangelogNumberDecider((int) $changelogNumber);
+        } elseif (! $input->getOption('with-feature')) {
             $deciders[] = new NonFeatureDecider();
         }
 

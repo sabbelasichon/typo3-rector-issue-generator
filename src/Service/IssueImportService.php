@@ -27,7 +27,7 @@ final readonly class IssueImportService
     /**
      * @param Version[] $versions
      */
-    public function import(array $versions, OutputInterface $output, bool $update): void
+    public function import(array $versions, OutputInterface $output, bool $update = false): void
     {
         $importedIssues = [];
         foreach ($versions as $version) {

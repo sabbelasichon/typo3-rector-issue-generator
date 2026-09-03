@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Ssch\Typo3rectorIssueGenerator\Tests\Unit\Service;
 
 use PHPUnit\Framework\TestCase;
+use Ssch\Typo3rectorIssueGenerator\Decider\ChangelogNumberDecider;
 use Ssch\Typo3rectorIssueGenerator\Decider\CompositeChangelogDecider;
 use Ssch\Typo3rectorIssueGenerator\Decider\NonFeatureDecider;
 use Ssch\Typo3rectorIssueGenerator\Decider\NonIndexDecider;
@@ -206,5 +207,63 @@ REST;
             $version
         );
         self::assertEquals([$breakingIssue, $deprecationIssue], $this->issueRepository->getIssues());
+    }
+
+    public function testImportSingleFeatureByFeatureNumber(): void
+    {
+        // Arrange
+        $version = new Version('12.4');
+        $versions = [$version];
+
+        $featureRest = <<<'REST'
+.. include:: /Includes.rst.txt
+
+.. _feature-100000:
+
+=========================================
+Feature: #100000 - Some fancy new feature
+=========================================
+
+See :issue:`100000`
+
+Description
+===========
+
+A new feature was added.
+
+.. index:: PHP-API
+REST;
+
+        $featureFileName = 'Feature-100000-SomeFancyNewFeature.rst';
+
+        $issueRepository = new InMemoryIssueRepository();
+
+        $subject = new IssueImportService(
+            new InMemoryChangelogRepository(
+                [
+                    new Changelog('Breaking-102108-TCATypesbitmask_Settings.rst', 'A message', $version),
+                    new Changelog($featureFileName, $featureRest, $version),
+                    new Changelog('Feature.rst', 'A message', $version),
+                    new Changelog('Index.rst', 'A message', $version),
+                ]
+            ),
+            $issueRepository,
+            new InMemoryGithubIssueRepository(),
+            new CompositeChangelogDecider([new NonIndexDecider(), new ChangelogNumberDecider(100000)])
+        );
+
+        // Act
+        $subject->import($versions, new NullOutput());
+
+        // Assert
+        $featureIssue = new Issue(
+            md5($featureFileName),
+            new GithubIssueId(1),
+            'Feature',
+            'Feature: #100000 - Some fancy new feature',
+            100000,
+            $version
+        );
+        self::assertEquals([$featureIssue], $issueRepository->getIssues());
     }
 }
