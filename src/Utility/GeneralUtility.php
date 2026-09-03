@@ -14,7 +14,7 @@ class GeneralUtility
      * Each item will have leading and trailing whitespace removed. However, if the tail items are
      * returned as a single array item, their internal whitespace will not be modified.
      *
-     * @param string $delim Delimiter string to explode with
+     * @param non-empty-string $delim Delimiter string to explode with
      * @param string $string The string to explode
      * @param bool $removeEmptyValues If set, all empty values will be removed in output
      * @param int $limit If limit is set and positive, the returned array will contain a maximum of limit elements with
