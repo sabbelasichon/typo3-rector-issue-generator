@@ -146,7 +146,6 @@ Ssch\Typo3rectorIssueGenerator\
 
 ### Database
 - `db/issues.db` is auto-created on first run
-- Never commit to version control (in .gitignore)
 
 ## When Modifying Code
 
